@@ -92,8 +92,7 @@ class RecipeCard extends HTMLElement {
     }
     `;
     // A5. TODO - Append the <style> and <article> elements to the Shadow DOM
-    shadoeEl.appendChild(style);
-    shadoeEl.appendChild(article);
+    this.shadowRoot.appendChild(style, article);
   }
 
   /**
@@ -122,26 +121,26 @@ class RecipeCard extends HTMLElement {
     if (!data) return;
 
     // A6. TODO - Select the <article> we added to the Shadow DOM in the constructor
-    let ar = this.querySelector("article");
+    let ar = this.shadowRoot.childNodes[1];
     // A7. TODO - Set the contents of the <article> with the <article> template given in
     //           cardTemplate.html and the data passed in (You should only have one <article>,
     //           do not nest an <article> inside another <article>). You should use Template
     //           literals (tempalte strings) and element.innerHTML for this.
     ar.innerHTML = `
-    <img src=${data.imgSrc}
-      alt=${data.imgAlt}>
+    <img src="${data["imgSrc"]}"
+      alt="${data["imgAlt"]}">
     <p class="title">
-      <a href=${data.titleLnk}>${data.titleTxt}</a>
+      <a href="${data.["titleLnk"]}">${data["titleTxt"]}</a>
     </p>
-    <p class="organization">${data.organization}</p>
+    <p class="organization">${data["organization"]}</p>
     <div class="rating">
-      <span>${data.rating}</span>
+      <span>${data["rating"]}</span>
       <img src="/assets/images/icons/5-star.svg" alt="5 stars">
-      <span>(${data.numRatings})</span>
+      <span>(${data["numRatings"]})</span>
     </div>
-    <time>${data.lengthTime}</time>
+    <time>${data["lengthTime"]}</time>
     <p class="ingredients">
-      ${data.ingredients}
+      ${data["ingredients"]}
     </p>
     `;
   };
